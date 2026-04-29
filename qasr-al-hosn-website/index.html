@@ -312,6 +312,75 @@
             min-width: 44px;
             cursor: pointer;
         }
+
+        /* Accordion Styles */
+        .accordion-item {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .accordion-item:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: #333;
+            transition: background 0.2s ease;
+        }
+
+        .accordion-header:hover {
+            background: #fef3c7;
+        }
+
+        .accordion-header.active {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .accordion-icon {
+            font-size: 14px;
+            color: #b8860b;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            background: #fffbeb;
+        }
+
+        .accordion-content.open {
+            max-height: 500px;
+            padding: 0 20px 16px 20px;
+        }
+
+        .accordion-content p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.6;
+            padding-top: 8px;
+        }
     </style>
 </head>
 <body>
@@ -325,6 +394,7 @@
             const [revealedFacts, setRevealedFacts] = useState({});
             const [navScrolled, setNavScrolled] = useState(false);
             const [lightboxImage, setLightboxImage] = useState(null);
+            const [openAccordion, setOpenAccordion] = useState(null);
 
             useEffect(() => {
                 let lastScrollY = window.scrollY;
@@ -675,18 +745,78 @@
                                         <i className="fas fa-ticket section-icon" aria-hidden="true"></i>
                                         What You'll See Inside of Qasr Al Hosn
                                     </h3>
-                                    <ul className="space-y-3 text-lg text-gray-700">
-                                        <li><strong>• Guided tours in different languages</strong><br/>Qasr Al Hosn offers guided tours (including virtual ones) that explain the fort's history, the ruling family, and Abu Dhabi's development.</li>
-                                        <li><strong>• Interactive displays on Abu Dhabi history</strong><br/>There are interactive screens, immersive rooms, and even a small sound‑and‑light show explaining how Abu Dhabi grew from a pearling settlement to a modern city.</li>
-                                        <li><strong>• Craft demonstrations</strong><br/>At the House of Artisans, visitors can watch demonstrations of Al‑Sadu weaving, Khoos (palm weaving), Talli embroidery, and sometimes coffee‑making.</li>
-                                        <li><strong>• Shops that feature local handmade items</strong><br/>There are shops selling traditional crafts and handmade Emirati items.</li>
-                                        <li><strong>• Café with traditional Abu Dhabi snacks</strong><br/>Visitors can enjoy traditional Emirati coffee and snacks at Bait Al Gahwa and nearby cafés.</li>
-                                        <li><strong>• Museum exhibitions inside the fort</strong><br/>There are rooms that show artifacts from fishing, pearling, agriculture, and daily life in old Abu Dhabi.</li>
-                                        <li><strong>• Recreated living spaces</strong><br/>Bedrooms, majlis rooms, kitchens, and storage rooms are set up exactly how they looked when the ruling family lived there.</li>
-                                        <li><strong>• Audio guides</strong><br/>Self‑guided audio tours are available for visitors who prefer exploring at their own pace.</li>
-                                        <li><strong>• Cultural performances</strong><br/>Traditional arts like Al‑Taghrooda (poetry in song) and other performances appear in the cultural program.</li>
-                                        <li><strong>• Access to the Cultural Foundation</strong><br/>Workshops, exhibitions, and events are often held there as part of the Al Hosn site.</li>
-                                    </ul>
+                                    <div className="space-y-2">
+                                        <AccordionItem
+                                            id="acc1"
+                                            title="Guided tours in different languages"
+                                            content="Qasr Al Hosn offers guided tours (including virtual ones) that explain the fort's history, the ruling family, and Abu Dhabi's development."
+                                            isOpen={openAccordion === 'acc1'}
+                                            onToggle={setOpenAccordion}
+                                        />
+                                        <AccordionItem
+                                            id="acc2"
+                                            title="Interactive displays on Abu Dhabi history"
+                                            content="There are interactive screens, immersive rooms, and even a small sound‑and‑light show explaining how Abu Dhabi grew from a pearling settlement to a modern city."
+                                            isOpen={openAccordion === 'acc2'}
+                                            onToggle={setOpenAccordion}
+                                        />
+                                        <AccordionItem
+                                            id="acc3"
+                                            title="Craft demonstrations"
+                                            content="At the House of Artisans, visitors can watch demonstrations of Al‑Sadu weaving, Khoos (palm weaving), Talli embroidery, and sometimes coffee‑making."
+                                            isOpen={openAccordion === 'acc3'}
+                                            onToggle={setOpenAccordion}
+                                        />
+                                        <AccordionItem
+                                            id="acc4"
+                                            title="Shops that feature local handmade items"
+                                            content="There are shops selling traditional crafts and handmade Emirati items."
+                                            isOpen={openAccordion === 'acc4'}
+                                            onToggle={setOpenAccordion}
+                                        />
+                                        <AccordionItem
+                                            id="acc5"
+                                            title="Café with traditional Abu Dhabi snacks"
+                                            content="Visitors can enjoy traditional Emirati coffee and snacks at Bait Al Gahwa and nearby cafés."
+                                            isOpen={openAccordion === 'acc5'}
+                                            onToggle={setOpenAccordion}
+                                        />
+                                        <AccordionItem
+                                            id="acc6"
+                                            title="Museum exhibitions inside the fort"
+                                            content="There are rooms that show artifacts from fishing, pearling, agriculture, and daily life in old Abu Dhabi."
+                                            isOpen={openAccordion === 'acc6'}
+                                            onToggle={setOpenAccordion}
+                                        />
+                                        <AccordionItem
+                                            id="acc7"
+                                            title="Recreated living spaces"
+                                            content="Bedrooms, majlis rooms, kitchens, and storage rooms are set up exactly how they looked when the ruling family lived there."
+                                            isOpen={openAccordion === 'acc7'}
+                                            onToggle={setOpenAccordion}
+                                        />
+                                        <AccordionItem
+                                            id="acc8"
+                                            title="Audio guides"
+                                            content="Self‑guided audio tours are available for visitors who prefer exploring at their own pace."
+                                            isOpen={openAccordion === 'acc8'}
+                                            onToggle={setOpenAccordion}
+                                        />
+                                        <AccordionItem
+                                            id="acc9"
+                                            title="Cultural performances"
+                                            content="Traditional arts like Al‑Taghrooda (poetry in song) and other performances appear in the cultural program."
+                                            isOpen={openAccordion === 'acc9'}
+                                            onToggle={setOpenAccordion}
+                                        />
+                                        <AccordionItem
+                                            id="acc10"
+                                            title="Access to the Cultural Foundation"
+                                            content="Workshops, exhibitions, and events are often held there as part of the Al Hosn site."
+                                            isOpen={openAccordion === 'acc10'}
+                                            onToggle={setOpenAccordion}
+                                        />
+                                    </div>
                                 </div>
 
                                 <div>
@@ -935,6 +1065,32 @@
                     ) : (
                         <p className="text-gray-500 italic">Click to see it at Qasr Al Hosn</p>
                     )}
+                </div>
+            );
+        }
+
+        // Accordion Item Component
+        function AccordionItem({ id, title, content, isOpen, onToggle }) {
+            const handleClick = () => {
+                onToggle(isOpen ? null : id);
+            };
+            return (
+                <div className="accordion-item">
+                    <button
+                        className={`accordion-header ${isOpen ? 'active' : ''}`}
+                        onClick={handleClick}
+                        aria-expanded={isOpen}
+                        aria-controls={`accordion-content-${id}`}
+                    >
+                        <span>{title}</span>
+                        <i className={`fas fa-chevron-down accordion-icon ${isOpen ? 'rotated' : ''}`} aria-hidden="true"></i>
+                    </button>
+                    <div
+                        id={`accordion-content-${id}`}
+                        className={`accordion-content ${isOpen ? 'open' : ''}`}
+                    >
+                        <p>{content}</p>
+                    </div>
                 </div>
             );
         }
